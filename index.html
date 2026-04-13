@@ -114,7 +114,6 @@ body {
 
 .options { display: flex; flex-direction: column; gap: 12px; }
 
-/* A・Bは通常ボタン */
 .option-btn {
   padding: 14px 20px;
   background: transparent;
@@ -141,7 +140,6 @@ body {
   opacity: 0.8;
 }
 
-/* Cは控えめスタイル */
 .option-btn-c {
   padding: 10px 20px;
   background: transparent;
@@ -167,7 +165,6 @@ body {
   margin-bottom: 3px;
 }
 
-/* 結果 */
 .result-section { display: none; animation: fadeUp 1s ease both; }
 .result-section.show { display: block; }
 
@@ -261,9 +258,9 @@ body {
 
   <div class="quiz-section" id="quizSection">
     <div class="progress-bar">
-      <div class="progress-label" id="progressLabel">Q 1 / 5</div>
+      <div class="progress-label" id="progressLabel">Q 1 / 9</div>
       <div class="progress-track">
-        <div class="progress-fill" id="progressFill" style="width:20%"></div>
+        <div class="progress-fill" id="progressFill" style="width:11%"></div>
       </div>
     </div>
     <div class="question-card">
@@ -300,16 +297,40 @@ const questions = [
       { label:'B', text:'一人でゆっくりする', value:'I' },
       { label:'C', text:'どうしても決められない', value:'B', soft: true }
     ]},
-  { text: '何かを決断するとき、重視するのは？', axis: 'FT',
+  { text: '本音では、初めて会う人と話すときどちらに近い？', axis: 'EI',
+    options: [
+      { label:'A', text:'自分から話しかけることが多い', value:'E' },
+      { label:'B', text:'相手から話しかけてくれる方が楽', value:'I' },
+      { label:'C', text:'どうしても決められない', value:'B', soft: true }
+    ]},
+  { text: '仕事や作業のとき、集中できるのは？', axis: 'EI',
+    options: [
+      { label:'A', text:'誰かがいる場所や賑やかな環境', value:'E' },
+      { label:'B', text:'一人で静かな環境', value:'I' },
+      { label:'C', text:'どうしても決められない', value:'B', soft: true }
+    ]},
+  { text: '何かを決断するとき、本来重視したいのは？', axis: 'FT',
     options: [
       { label:'A', text:'自分の気持ちや直感', value:'F' },
       { label:'B', text:'筋が通っているか・論理的か', value:'T' },
       { label:'C', text:'どうしても決められない', value:'B', soft: true }
     ]},
-  { text: '友人に相談されたとき、気づいたら何をしていますか？', axis: 'FT',
+  { text: '友人に相談されたとき、自然とやっていることは？', axis: 'FT',
     options: [
       { label:'A', text:'ひたすら話を聞いて共感している', value:'F' },
       { label:'B', text:'解決策や具体的なアドバイスを伝えている', value:'T' },
+      { label:'C', text:'どうしても決められない', value:'B', soft: true }
+    ]},
+  { text: '誰かと意見が違ったとき、まず思うのは？', axis: 'FT',
+    options: [
+      { label:'A', text:'相手はなぜそう思うんだろう', value:'F' },
+      { label:'B', text:'どちらが正しいか整理したい', value:'T' },
+      { label:'C', text:'どうしても決められない', value:'B', soft: true }
+    ]},
+  { text: '計画を立てるとき、本来重視したいのは？', axis: 'FT',
+    options: [
+      { label:'A', text:'みんなが納得できるか', value:'F' },
+      { label:'B', text:'効率的で筋が通っているか', value:'T' },
       { label:'C', text:'どうしても決められない', value:'B', soft: true }
     ]},
   { text: '迷ったとき、最終的に背中を押すのは？', axis: 'FT',
@@ -388,12 +409,13 @@ const types = {
 
 let currentQ = 0;
 let scores = { EI: [], FT: [] };
+const totalQ = questions.length;
 
 function renderQuestion() {
   const q = questions[currentQ];
-  document.getElementById('progressLabel').textContent = `Q ${currentQ + 1} / 5`;
-  document.getElementById('progressFill').style.width = `${((currentQ+1)/5)*100}%`;
-  document.getElementById('questionNumber').textContent = `QUESTION 0${currentQ+1}`;
+  document.getElementById('progressLabel').textContent = `Q ${currentQ + 1} / ${totalQ}`;
+  document.getElementById('progressFill').style.width = `${((currentQ+1)/totalQ)*100}%`;
+  document.getElementById('questionNumber').textContent = `QUESTION ${String(currentQ+1).padStart(2,'0')}`;
   document.getElementById('questionText').textContent = q.text;
   const container = document.getElementById('optionsContainer');
   container.innerHTML = '';
