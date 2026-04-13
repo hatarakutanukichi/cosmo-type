@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMO TYPE | あなたの中に、宇宙がある。</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0f0e1a;
+  --text: #f0eadc;
+  --gold: #c9a84c;
+  --gold-light: #e8d08a;
+  --muted: rgba(240,234,220,0.65);
+  --card-bg: rgba(255,255,255,0.07);
+  --border: rgba(201,168,76,0.3);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Serif JP', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle var(--d) ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  from { opacity: var(--o); }
+  to { opacity: calc(var(--o) * 0.15); }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+
+.header { text-align: center; margin-bottom: 48px; animation: fadeUp 0.8s ease both; }
+.logo {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(24px, 6vw, 38px);
+  color: var(--gold-light);
+  letter-spacing: 6px;
+  text-shadow: 0 0 40px rgba(201,168,76,0.4);
+  margin-bottom: 12px;
+}
+.tagline {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 300;
+}
+.divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.3;
+}
+.divider-icon { color: var(--gold); font-size: 16px; opacity: 0.7; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.quiz-section { animation: fadeUp 0.8s ease 0.2s both; }
+
+.progress-bar { margin-bottom: 32px; }
+.progress-label {
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  font-family: 'Noto Sans JP', sans-serif;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.progress-track { height: 2px; background: rgba(201,168,76,0.15); border-radius: 1px; overflow: hidden; }
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 1px;
+  transition: width 0.5s ease;
+}
+
+.question-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 36px 28px;
+  margin-bottom: 24px;
+}
+.question-number {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+.question-text { font-size: 17px; line-height: 1.8; margin-bottom: 28px; color: var(--text); }
+
+.options { display: flex; flex-direction: column; gap: 12px; }
+
+/* A・Bは通常ボタン */
+.option-btn {
+  padding: 14px 20px;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--text);
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.option-btn:hover {
+  border-color: rgba(201,168,76,0.7);
+  background: rgba(201,168,76,0.08);
+  color: var(--gold-light);
+}
+.option-label {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  font-family: 'Noto Sans JP', sans-serif;
+  display: block;
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+
+/* Cは控えめスタイル */
+.option-btn-c {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid rgba(240,234,220,0.12);
+  color: rgba(240,234,220,0.4);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 1px;
+}
+.option-btn-c:hover {
+  border-color: rgba(240,234,220,0.25);
+  color: rgba(240,234,220,0.65);
+}
+.option-label-c {
+  font-size: 10px;
+  color: rgba(240,234,220,0.3);
+  letter-spacing: 2px;
+  font-family: 'Noto Sans JP', sans-serif;
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* 結果 */
+.result-section { display: none; animation: fadeUp 1s ease both; }
+.result-section.show { display: block; }
+
+.type-header { text-align: center; margin-bottom: 40px; }
+.type-emoji { font-size: 48px; display: block; margin-bottom: 16px; filter: drop-shadow(0 0 20px rgba(201,168,76,0.5)); }
+.type-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(28px, 7vw, 42px);
+  color: var(--gold-light);
+  letter-spacing: 4px;
+  text-shadow: 0 0 30px rgba(201,168,76,0.4);
+  margin-bottom: 12px;
+}
+.type-axis { font-size: 11px; color: var(--muted); letter-spacing: 3px; font-family: 'Noto Sans JP', sans-serif; margin-bottom: 20px; }
+.catchcopy {
+  font-size: 15px;
+  color: var(--gold-light);
+  line-height: 1.9;
+  padding: 20px 24px;
+  border-left: 2px solid rgba(201,168,76,0.5);
+  background: rgba(201,168,76,0.06);
+  margin: 0 auto;
+  max-width: 500px;
+  text-align: left;
+}
+
+.section-block { margin-bottom: 28px; }
+.section-title { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.section-icon { font-size: 18px; }
+.section-label { font-family: 'Cinzel', serif; font-size: 11px; color: var(--gold); letter-spacing: 3px; }
+.section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(201,168,76,0.3), transparent); }
+
+.content-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 2px solid rgba(201,168,76,0.4);
+  padding: 20px 24px;
+}
+.content-box p { font-size: 14px; line-height: 2.2; color: var(--text); font-weight: 300; }
+
+.list-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.list-items li { font-size: 14px; line-height: 1.8; color: var(--text); padding-left: 16px; position: relative; }
+.list-items li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 4px; opacity: 0.7; }
+
+.survey-section { text-align: center; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(201,168,76,0.15); }
+.survey-text { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 2; font-family: 'Noto Sans JP', sans-serif; font-weight: 300; }
+.survey-btn {
+  display: inline-block;
+  padding: 14px 32px;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.survey-btn:hover { background: rgba(201,168,76,0.08); border-color: var(--gold); }
+
+.retry-btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid rgba(240,234,220,0.1);
+  color: rgba(240,234,220,0.35);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.retry-btn:hover { border-color: rgba(240,234,220,0.3); color: rgba(240,234,220,0.6); }
+
+.footer { text-align: center; margin-top: 60px; font-size: 11px; color: rgba(240,234,220,0.2); letter-spacing: 2px; font-family: 'Noto Sans JP', sans-serif; }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">COSMO TYPE</div>
+    <div class="tagline">あなたのやりたいことは、すでにあなたの才能です。</div>
+    <div class="divider"><span class="divider-icon">✦</span></div>
+  </div>
+
+  <div class="quiz-section" id="quizSection">
+    <div class="progress-bar">
+      <div class="progress-label" id="progressLabel">Q 1 / 5</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:20%"></div>
+      </div>
+    </div>
+    <div class="question-card">
+      <div class="question-number" id="questionNumber">QUESTION 01</div>
+      <div class="question-text" id="questionText"></div>
+      <div class="options" id="optionsContainer"></div>
+    </div>
+  </div>
+
+  <div class="result-section" id="resultSection"></div>
+  <div class="footer">COSMO TYPE × たぬきち</div>
+</div>
+
+<script>
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 100; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() < 0.2 ? 3 : 2;
+  s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;--d:${2+Math.random()*4}s;--o:${0.2+Math.random()*0.6};animation-delay:${Math.random()*4}s;`;
+  starsEl.appendChild(s);
+}
+
+const questions = [
+  { text: 'エネルギーが回復するのはどちらですか？', axis: 'EI',
+    options: [
+      { label:'A', text:'人と話した後、元気になる', value:'E' },
+      { label:'B', text:'一人になった後、元気になる', value:'I' },
+      { label:'C', text:'どうしても決められない', value:'B', soft: true }
+    ]},
+  { text: '週末の理想はどちらに近いですか？', axis: 'EI',
+    options: [
+      { label:'A', text:'友人や家族と過ごす', value:'E' },
+      { label:'B', text:'一人でゆっくりする', value:'I' },
+      { label:'C', text:'どうしても決められない', value:'B', soft: true }
+    ]},
+  { text: '何かを決断するとき、重視するのは？', axis: 'FT',
+    options: [
+      { label:'A', text:'自分の気持ちや直感', value:'F' },
+      { label:'B', text:'筋が通っているか・論理的か', value:'T' },
+      { label:'C', text:'どうしても決められない', value:'B', soft: true }
+    ]},
+  { text: '友人に相談されたとき、気づいたら何をしていますか？', axis: 'FT',
+    options: [
+      { label:'A', text:'ひたすら話を聞いて共感している', value:'F' },
+      { label:'B', text:'解決策や具体的なアドバイスを伝えている', value:'T' },
+      { label:'C', text:'どうしても決められない', value:'B', soft: true }
+    ]},
+  { text: '迷ったとき、最終的に背中を押すのは？', axis: 'FT',
+    options: [
+      { label:'A', text:'なんとなくの感覚・直感', value:'F' },
+      { label:'B', text:'これまでの経験や実績', value:'T' },
+      { label:'C', text:'どうしても決められない', value:'B', soft: true }
+    ]}
+];
+
+const types = {
+  'EF':{ name:'ソレイユ', emoji:'🌞', axis:'外向き × 感情', catchcopy:'太陽は、ただそこにいるだけで世界を照らす。',
+    strengths:['その場にいるだけで空気が明るくなる','感情を素直に表現できる','喜びを周りに伝染させる力がある'],
+    pitfalls:['感情が先走って後で後悔しやすい','誰にでも好かれようとして消耗する','人の反応に一喜一憂しすぎる'],
+    talent:'「おしゃべりすぎかな」「感情的すぎるかな」と感じたことはありませんか。実はそのおしゃべりと感情表現こそが、ビジネスで最も希少なスキルです。人を集め、その場を温め、また来たいと思わせる——これができる人はそう多くない。接客、イベント、SNS発信、コミュニティ運営——「人が集まる場所」を作ることがあなたの才能の本領です。あなたが「ただ楽しくやってるだけ」と思っていることが、他の人には真似できないビジネスの核になります。',
+    env:'人と関わることが多い環境、チームで動く仕事、誰かのために何かをする場面。一人で黙々と作業するより、反応がもらえる環境の方が力が出ます。オンラインより対面、静かな場所より少し賑やかな場所の方が本領発揮できます。',
+    recovery:'疲れた時ほど一人になろうとしがちですが、ソレイユタイプは信頼できる人と話すことで回復します。感情を吐き出せる場所を一つ持っておくと、消耗しにくくなります。',
+    avoid:'感情を抑えて「いい人」を演じ続けること。無理に感情を押し込めると、エネルギーが行き場を失い突然爆発したり深く落ち込んだりします。嫌なことは早めに小出しにする習慣が、長く輝き続けるコツです。'},
+  'ET':{ name:'フォルテ', emoji:'⚡', axis:'外向き × 論理', catchcopy:'あなたの言葉には、根拠という名の力がある。',
+    strengths:['考えてから動くのではなく、動きながら考えられる','目標を決めたら迷わず進める','複雑な状況でも冷静に判断できる'],
+    pitfalls:['正論すぎて相手の気持ちを置き去りにする','弱さを見せるのが苦手','完璧を求めすぎて周りを疲弊させる'],
+    talent:'共感より先に「なぜ？」「どうすれば？」が出てしまう——そう感じたことはありませんか。でもその瞬発的な論理思考は、誰かがやらなければいけない役割です。みんなが感情で動いている場面で、あなただけが冷静に本質を見ている。そのズレが時に「冷たい」と映ることもあるけれど、チームに必ず一人必要な人間がいるとしたら、それはあなたです。投資、リスク管理、危機対応、意思決定——感情に流されず判断できる人を、世界は常に求めています。',
+    env:'明確な目標がある環境、結果が数字で見える仕事、自分でペースを決められる場面。ルールや仕組みを自分で作れる環境が最も輝けます。',
+    recovery:'疲れた時こそ一人で静かに過ごす時間が必要です。体を動かす、本を読む、一人で考えをまとめる——インプットの時間が回復につながります。',
+    avoid:'正しさを押しつけること。「正しいかどうか」より「相手に届くかどうか」を意識するだけで、あなたの力は何倍にもなります。'},
+  'EB':{ name:'ルミナ', emoji:'✨', axis:'外向き × 両方', catchcopy:'あなたは光。当たる角度で、違う色を見せる。',
+    strengths:['どんな場所でも自分らしくいられる','感情と論理を状況で使い分けられる','多様な人と深く関われる'],
+    pitfalls:['柔軟すぎて自分の軸がぼやけることがある','八方美人に見られやすい','全方向に気を使いすぎて疲れる'],
+    talent:'「どっちつかず」「自分がない」と言われたことはありませんか。でもそれは、あなたが誰よりも多くの情報を持っているからです。感情タイプの気持ちも、論理タイプの正しさも、両方受け取れるルミナタイプは、その場で唯一「全体地図」を持っている人。正しい派と感情派の両極が見えているからこそ、誰も気づかない妥協点を見つけられる。その妥協点こそが、プロジェクトを円滑に進め、チームの成功率を上げる決定打になります。',
+    env:'多様な人と関われる環境、役割が固定されていない仕事。状況に応じて動ける場所の方が本領発揮できます。',
+    recovery:'全方向に気を使いすぎて消耗するのがルミナタイプ。「今日は誰にも合わせない」と決める時間を意識的に作ることが大切です。',
+    avoid:'全員に好かれようとすること。「この人には好かれなくていい」と決める勇気が、逆にあなたの魅力を際立たせます。'},
+  'IF':{ name:'セレーナ', emoji:'🌙', axis:'内向き × 感情', catchcopy:'あなたの優しさは、月明かりのように静かに届く。',
+    strengths:['言葉にならない気持ちを察することができる','繊細だからこその優しさで人を包める','そこにいるだけで安心感を与えられる'],
+    pitfalls:['人の感情を受け取りすぎて消耗する','断れずに我慢を重ねてしまう','深読みしすぎて勝手に傷つくことがある'],
+    talent:'「いつも自分だけしんどい」と感じることはありませんか。それはあなたが、他の人には受け取れない信号を受け取っているからです。言葉にならない誰かの痛み、場の微妙な違和感——それを誰より先に察知できる。その感性は、直接誰かと向き合い続けると消耗しますが、作品・言葉・サービス・商品に変換したときに本領を発揮します。あなたが作ったものを受け取った人は「これ、私のことだ」と感じます。一対一で会わなくても、一対一のように届く——それがセレーナタイプの才能です。',
+    env:'一対一の関係、少人数、自分のペースで動ける環境。深く関われる仕事ほど輝けます。',
+    recovery:'完全に一人になる時間が必要です。自然の中を歩く、好きな音楽を聴く、何も考えずぼーっとする。誰かのために何かをしない時間を意識的に作ることが回復の鍵です。',
+    avoid:'全部自分で抱えること。「これは私の問題ではない」と線引きする練習が、長く力を発揮し続けるために必要です。'},
+  'IT':{ name:'クリスタル', emoji:'💎', axis:'内向き × 論理', catchcopy:'濁りのない目だけが、本質を見抜ける。',
+    strengths:['感情に流されず本質を見抜ける','細部まで丁寧に考えられる','複雑な問題をシンプルに整理できる'],
+    pitfalls:['完璧じゃないと動けなくなる','人の感情より正しさを優先しすぎる','他人の雑さが許せなくなる'],
+    talent:'「空気が読めない」「頑固すぎる」と言われるかもしれません。それはあなたが、忖度や馴れ合いを通さずに本質だけを見ているクリスタルタイプだから。全部見えているからこそ本質に一直線に辿り着き、そこから曲げることができない。時にその純粋さが煙たがられることがあります。でも、その忖度のない目は希少な価値になります。「この人の言葉は本物だ」と思われる人間になれるのは、クリスタルタイプだけです。その透明さを活かせる場所を選ぶだけで、あなたは本領を発揮できます。',
+    env:'一人で深く集中できる環境、品質が求められる仕事。高い基準を求められる環境ほど輝けます。',
+    recovery:'回復には「不完全でいい時間」が必要です。結果を求めない趣味、採点されない創作——「正しくなくていい場所」を意識的に作ることが大切です。',
+    avoid:'完璧になるまで動かないこと。「70点で出して、後から磨く」という感覚が、あなたの才能を世界に届けるための鍵です。'},
+  'IB':{ name:'アビッソ', emoji:'🌊', axis:'内向き × 両方', catchcopy:'深く潜るほど、底には知られざる世界がある。',
+    strengths:['表面では見えないものを感じ取れる','感情と論理を内側で統合できる','一度信じたら全力で向き合える'],
+    pitfalls:['必要とされているか不安になる','内側で抱えすぎて誰にも言えなくなる','深く考えすぎて答えが出ないループにはまる'],
+    talent:'「これで合ってるのか」——そう自問し続けることはありませんか。実はあなたはすでに答えを持っています。ただ、直感で得た答えを自分の中で論理的に解釈できるまで、その答えに気づけないのです。バラバラに見えるものの間に橋を架け、誰も気づいていない本質を言語化する——それがアビッソタイプの才能です。ただしこの才能は、対話によって研ぎ澄まされます。壁打ち相手を持つことが、あなたの直感を確信に変える唯一の鍵です。',
+    env:'一人で深く考える時間と、壁打ちできる相手が両方ある環境。「考えてから話せる」ペースが保てる場所が本領発揮できます。',
+    recovery:'完全に一人になって「何も答えを出さない時間」が必要です。散歩、入浴、何も考えない時間——答えを求めない状態に戻すことが回復の鍵です。',
+    avoid:'一人で全部完結させようとすること。壁打ち相手を持つことが、あなたの才能を本物にする唯一の方法です。'},
+  'BF':{ name:'オーロラ', emoji:'🌌', axis:'両方 × 感情', catchcopy:'予測できないからこそ、人生は鮮やかになる。',
+    strengths:['予測できない発想で人を驚かせられる','感情の波をエネルギーに変えられる','どんな環境にも独自の色を添えられる'],
+    pitfalls:['気分にムラがあって周りを戸惑わせる','熱しやすく冷めやすい','衝動的に動いて後悔することがある'],
+    talent:'気分にムラがあり、周囲との温度差で思い悩むことがあるかもしれません。しかし、オーロラタイプが瞬発的に生み出すものは、他の人を圧倒します。オーロラは太陽から放出されたプラズマのエネルギーを受け取った地球の大気が光る現象。あなたのエネルギーを受け、周囲の人もまた光り出すのです。その発想力は、閉塞した場面で思わぬアイディアを生み出します。あなたが瞬間に込めた熱量と発想力で生み出されるアートや企画だからこそ、強く人の心を打つのです。',
+    env:'ルールや型にはまらない環境、自分のペースで動ける仕事。「自由にやっていい」と言われた瞬間に本領発揮できます。',
+    recovery:'無理に「落ち着こう」とするより感情を出し切る方が回復が早いです。好きな音楽を大音量で聴く、体を動かす、創作する——エネルギーを発散させることが回復の鍵です。',
+    avoid:'熱が冷めた自分を責めること。冷めた時期は次の爆発のための充電期間。「充電中」と捉えることで、罪悪感なく次の熱量を待てます。'},
+  'BT':{ name:'ステラ', emoji:'⭐', axis:'両方 × 論理', catchcopy:'いつもそこにいるあなたの光は最も遠くまで届く。',
+    strengths:['全体を俯瞰して冷静に判断できる','ぶれない軸で周囲の道標になれる','長期的な視野で物事を考えられる'],
+    pitfalls:['俯瞰しすぎて自分の感情を見失う','変化を好まず現状維持に傾きやすい','感情表現が苦手で誤解されることがある'],
+    talent:'「保守的」「面白みがない」と思われることはありませんか。でもステラタイプが変わらないのは、変化を恐れているからではありません。流行に飛びつく人が多い中、あなたは本当に必要な変化を選んでいる。その揺るがない軸と俯瞰力でいつのまにか「その道のプロ」に。特に伝統、歴史、専門性が求められる分野で、あなたの一貫性は最大の武器になり、さらには必要な変化を受け入れ発展させていけるでしょう。',
+    env:'専門性が求められる環境、長期的なプロジェクト、基準が明確な仕事。一つのことを深く追求できる環境で本領発揮できます。',
+    recovery:'「考えない、ただ感じる」時間が回復の鍵です。一人で静かに過ごす、日記を書く、好きなものに集中する——自分の気持ちに戻る時間を作りましょう。',
+    avoid:'変化を全部拒否すること。「これは変わるべきか」を冷静に見極める力を信じて、小さな変化から試してみてください。'},
+  'BB':{ name:'コスモ', emoji:'🌍', axis:'両方 × 両方', catchcopy:'あなたの中に、宇宙がある。',
+    strengths:['どんな人とも自然に繋がれる','感情も論理も内も外も全部使いこなせる','枠にとらわれない発想ができる'],
+    pitfalls:['何でもできるゆえに何をすべきかわからなくなる','広げすぎて一つに集中できない','共感しすぎて自分を見失う'],
+    talent:'「何をしようか」と悩むことが多いかもしれません。それは、やりたいことがないからではなく、どの設計図を形にするかで悩んでいる。感情も論理も、内も外も全部使いこなせるコスモタイプは、誰よりも多くの設計図を持っています。その設計図は人を繋げ、場を造り、動かす——これがコスモタイプの才能。あなたは自分で主役になるよりも、あなたが皆を主役にしていくことに喜びを感じるのでは？あなたが心を決めれば、環境は整っていくのです。',
+    env:'多様な人が集まる環境、役割が固定されていない仕事、裁量が大きい場面。全体を見渡しながら動ける場所で本領発揮できます。',
+    recovery:'「自分は何を感じているか」に戻る時間が必要です。一人で静かに過ごす、自然の中を歩く——全員の気持ちを手放して、自分だけの時間を作ることが回復の鍵です。',
+    avoid:'全部一人で抱えようとすること。あなたの才能は場を設計することであって、全部実行することではありません。任せる勇気が、あなたの才能を最大化します。'}
+};
+
+let currentQ = 0;
+let scores = { EI: [], FT: [] };
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('progressLabel').textContent = `Q ${currentQ + 1} / 5`;
+  document.getElementById('progressFill').style.width = `${((currentQ+1)/5)*100}%`;
+  document.getElementById('questionNumber').textContent = `QUESTION 0${currentQ+1}`;
+  document.getElementById('questionText').textContent = q.text;
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    if (opt.soft) {
+      btn.className = 'option-btn-c';
+      btn.innerHTML = `<span class="option-label-c">${opt.label}</span>${opt.text}`;
+    } else {
+      btn.className = 'option-btn';
+      btn.innerHTML = `<span class="option-label">${opt.label}</span>${opt.text}`;
+    }
+    btn.onclick = () => selectOption(opt.value);
+    container.appendChild(btn);
+  });
+}
+
+function selectOption(value) {
+  const q = questions[currentQ];
+  if (q.axis === 'EI') scores.EI.push(value);
+  else scores.FT.push(value);
+  currentQ++;
+  if (currentQ < questions.length) renderQuestion();
+  else showResult();
+}
+
+function getTypeKey() {
+  const eiCount = {E:0,I:0,B:0};
+  scores.EI.forEach(v => eiCount[v]++);
+  const ftCount = {F:0,T:0,B:0};
+  scores.FT.forEach(v => ftCount[v]++);
+  let ei = 'B';
+  if (eiCount.E > eiCount.I) ei = 'E';
+  else if (eiCount.I > eiCount.E) ei = 'I';
+  let ft = 'B';
+  if (ftCount.F > ftCount.T) ft = 'F';
+  else if (ftCount.T > ftCount.F) ft = 'T';
+  return ei + ft;
+}
+
+function showResult() {
+  document.getElementById('quizSection').style.display = 'none';
+  const key = getTypeKey();
+  const t = types[key] || types['BB'];
+  const rs = document.getElementById('resultSection');
+  rs.innerHTML = `
+    <div class="type-header">
+      <span class="type-emoji">${t.emoji}</span>
+      <div class="type-name">${t.name}</div>
+      <div class="type-axis">${t.axis}</div>
+      <div class="catchcopy">「${t.catchcopy}」</div>
+    </div>
+    <div class="section-block">
+      <div class="section-title"><span class="section-icon">🌟</span><span class="section-label">本当の才能</span><div class="section-line"></div></div>
+      <div class="content-box"><p>${t.talent}</p></div>
+    </div>
+    <div class="section-block">
+      <div class="section-title"><span class="section-icon">✦</span><span class="section-label">強み</span><div class="section-line"></div></div>
+      <div class="content-box"><ul class="list-items">${t.strengths.map(s=>`<li>${s}</li>`).join('')}</ul></div>
+    </div>
+    <div class="section-block">
+      <div class="section-title"><span class="section-icon">⚠️</span><span class="section-label">落とし穴</span><div class="section-line"></div></div>
+      <div class="content-box"><ul class="list-items">${t.pitfalls.map(p=>`<li>${p}</li>`).join('')}</ul></div>
+    </div>
+    <div class="section-block">
+      <div class="section-title"><span class="section-icon">🏡</span><span class="section-label">力を発揮する環境</span><div class="section-line"></div></div>
+      <div class="content-box"><p>${t.env}</p></div>
+    </div>
+    <div class="section-block">
+      <div class="section-title"><span class="section-icon">🌿</span><span class="section-label">疲れた時の回復法</span><div class="section-line"></div></div>
+      <div class="content-box"><p>${t.recovery}</p></div>
+    </div>
+    <div class="section-block">
+      <div class="section-title"><span class="section-icon">🚫</span><span class="section-label">やってはいけないこと</span><div class="section-line"></div></div>
+      <div class="content-box"><p>${t.avoid}</p></div>
+    </div>
+    <div class="survey-section">
+      <p class="survey-text">診断はいかがでしたか？<br>あなたの感想をぜひ教えてください。</p>
+      <a href="https://forms.gle/uBBmiDcGmcjSc12a7" target="_blank" class="survey-btn">アンケートに答える ✦</a>
+      <button class="retry-btn" onclick="resetQuiz()">もう一度診断する</button>
+    </div>
+  `;
+  rs.classList.add('show');
+}
+
+function resetQuiz() {
+  currentQ = 0;
+  scores = { EI: [], FT: [] };
+  document.getElementById('resultSection').classList.remove('show');
+  document.getElementById('resultSection').innerHTML = '';
+  document.getElementById('quizSection').style.display = 'block';
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
