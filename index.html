@@ -226,6 +226,22 @@ body {
 }
 .survey-btn:hover { background: rgba(201,168,76,0.08); border-color: var(--gold); }
 
+.back-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid rgba(240,234,220,0.1);
+  color: rgba(240,234,220,0.3);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.back-btn:hover { border-color: rgba(240,234,220,0.25); color: rgba(240,234,220,0.55); }
+
 .retry-btn {
   display: block;
   width: 100%;
@@ -433,6 +449,25 @@ function renderQuestion() {
     btn.onclick = () => selectOption(opt.value);
     container.appendChild(btn);
   });
+  // 戻るボタン（1問目以外に表示）
+  if (currentQ > 0) {
+    const backBtn = document.createElement('button');
+    backBtn.className = 'back-btn';
+    backBtn.textContent = '← 前の質問に戻る';
+    backBtn.onclick = () => goBack();
+    container.appendChild(backBtn);
+  }
+}
+
+function goBack() {
+  currentQ--;
+  const q = questions[currentQ];
+  // 直前の回答を取り消す
+  if (q.axis === 'EI') scores.EI.pop();
+  else if (q.axis === 'FT') scores.FT.pop();
+  else if (q.axis === 'SE') scores.SE = null;
+  else if (q.axis === 'SP') scores.SP = null;
+  renderQuestion();
 }
 
 function selectOption(value) {
