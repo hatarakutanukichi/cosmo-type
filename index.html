@@ -466,9 +466,6 @@ function renderQuestion() {
     backBtn.onclick = () => goBack();
     container.appendChild(backBtn);
   }
-  // カードを再表示
-  const card = document.querySelector('.question-card');
-  if (card) card.style.visibility = 'visible';
 }
 
 function goBack() {
@@ -483,10 +480,6 @@ function goBack() {
 }
 
 function selectOption(value) {
-  // カード全体を即座に非表示
-  const card = document.querySelector('.question-card');
-  if (card) card.style.visibility = 'hidden';
-  
   const q = questions[currentQ];
   if (q.axis === 'EI') scores.EI.push(value);
   else if (q.axis === 'FT') scores.FT.push(value);
