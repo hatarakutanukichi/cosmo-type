@@ -147,7 +147,7 @@ body {
 
 .option-btn-c {
   padding: 10px 20px;
-  background: #1a1928;
+  background: rgba(255,255,255,0.07);
   border: 1px solid rgba(240,234,220,0.12);
   color: rgba(240,234,220,0.4);
   font-family: 'Noto Sans JP', sans-serif;
@@ -168,11 +168,12 @@ body {
 }
 .option-label-c {
   font-size: 10px;
-  color: rgba(240,234,220,0.3);
+  color: var(--gold);
   letter-spacing: 2px;
   font-family: 'Noto Sans JP', sans-serif;
   display: block;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
+  opacity: 0.8;
 }
 
 .result-section { display: none; animation: fadeUp 1s ease both; }
@@ -450,8 +451,6 @@ function renderQuestion() {
     const btn = document.createElement('button');
     if (opt.soft) {
       btn.className = 'option-btn-c';
-      btn.style.background = 'rgba(255,255,255,0.07)';
-      btn.style.color = 'rgba(240,234,220,0.4)';
       btn.innerHTML = `<span class="option-label-c">${opt.label}</span>${opt.text}`;
     } else {
       btn.className = 'option-btn';
