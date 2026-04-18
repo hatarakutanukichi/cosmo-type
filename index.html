@@ -450,6 +450,8 @@ function renderQuestion() {
     const btn = document.createElement('button');
     if (opt.soft) {
       btn.className = 'option-btn-c';
+      btn.style.background = '#0f0e1a';
+      btn.style.color = 'rgba(240,234,220,0.4)';
       btn.innerHTML = `<span class="option-label-c">${opt.label}</span>${opt.text}`;
     } else {
       btn.className = 'option-btn';
