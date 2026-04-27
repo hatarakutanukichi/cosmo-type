@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMO TYPE™ | Discover Your 9-Type Personality</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0THTTZ90YM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-0THTTZ90YM');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Cinzel:wght@400;600&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #0f0e1a;
+  --text: #f0eadc;
+  --gold: #c9a84c;
+  --gold-light: #e8d08a;
+  --muted: rgba(240,234,220,0.65);
+  --card-bg: rgba(255,255,255,0.07);
+  --border: rgba(201,168,76,0.3);
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Cinzel', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle var(--d) ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  from { opacity: var(--o); }
+  to { opacity: calc(var(--o) * 0.15); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 20px 80px;
+}
+.header { text-align: center; margin-bottom: 48px; animation: fadeUp 0.8s ease both; }
+.logo {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(20px, 5vw, 32px);
+  color: var(--gold-light);
+  letter-spacing: 6px;
+  text-shadow: 0 0 40px rgba(201,168,76,0.4);
+  margin-bottom: 8px;
+}
+.tagline {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  font-family: 'Cinzel', serif;
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+.notice {
+  font-size: 11px;
+  color: rgba(240,234,220,0.3);
+  font-family: 'Cinzel', serif;
+  line-height: 1.8;
+  margin-top: 12px;
+}
+.divider { display: flex; align-items: center; gap: 12px; margin: 20px auto; }
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.3;
+}
+.divider-icon { color: var(--gold); font-size: 16px; opacity: 0.7; }
+.quiz-section { animation: fadeUp 0.8s ease 0.2s both; }
+.progress-bar { margin-bottom: 32px; }
+.progress-label {
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  font-family: 'Cinzel', serif;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.progress-track { height: 2px; background: rgba(201,168,76,0.15); border-radius: 1px; overflow: hidden; }
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 1px;
+  transition: width 0.5s ease;
+}
+.question-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 36px 28px;
+  margin-bottom: 24px;
+}
+.question-number {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+.question-text { font-size: 16px; line-height: 1.9; margin-bottom: 28px; color: var(--text); font-family: 'Cinzel', serif; }
+.options { display: flex; flex-direction: column; gap: 12px; }
+.option-btn {
+  padding: 14px 20px;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--text);
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+}
+.option-btn:hover {
+  border-color: rgba(201,168,76,0.7);
+  background: rgba(201,168,76,0.08);
+  color: var(--gold-light);
+}
+.option-btn:active {
+  opacity: 1;
+  background: transparent;
+  border-color: rgba(201,168,76,0.3);
+  color: var(--text);
+}
+.option-label {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  font-family: 'Cinzel', serif;
+  display: block;
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+.option-btn-c {
+  padding: 14px 20px;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.2);
+  color: rgba(240,234,220,0.5);
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+}
+.option-btn-c:hover {
+  border-color: rgba(201,168,76,0.5);
+  color: rgba(240,234,220,0.8);
+}
+.option-label-c {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  font-family: 'Cinzel', serif;
+  display: block;
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+.result-section { display: none; animation: fadeUp 1s ease both; }
+.result-section.show { display: block; }
+.type-header { text-align: center; margin-bottom: 40px; }
+.type-name {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(28px, 7vw, 42px);
+  color: var(--gold-light);
+  letter-spacing: 4px;
+  text-shadow: 0 0 30px rgba(201,168,76,0.4);
+  margin-bottom: 12px;
+}
+.type-axis { font-size: 11px; color: var(--muted); letter-spacing: 3px; font-family: 'Cinzel', serif; margin-bottom: 20px; }
+.catchcopy {
+  font-size: 15px;
+  color: var(--gold-light);
+  line-height: 1.9;
+  padding: 20px 24px;
+  border-left: 2px solid rgba(201,168,76,0.5);
+  background: rgba(201,168,76,0.06);
+  margin: 0 auto;
+  max-width: 500px;
+  text-align: left;
+  font-family: 'Cinzel', serif;
+}
+.section-block { margin-bottom: 28px; }
+.section-title { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.section-icon { font-size: 18px; }
+.section-label { font-family: 'Cinzel', serif; font-size: 11px; color: var(--gold); letter-spacing: 3px; }
+.section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(201,168,76,0.3), transparent); }
+.content-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 2px solid rgba(201,168,76,0.4);
+  padding: 20px 24px;
+}
+.content-box p { font-size: 14px; line-height: 2.2; color: var(--text); font-family: 'Cinzel', serif; font-weight: 300; }
+.list-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.list-items li { font-size: 14px; line-height: 1.8; color: var(--text); padding-left: 16px; position: relative; font-family: 'Cinzel', serif; }
+.list-items li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 4px; opacity: 0.7; }
+.survey-section { text-align: center; margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(201,168,76,0.15); }
+.survey-text { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 2; font-family: 'Cinzel', serif; font-weight: 300; }
+.retry-btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid rgba(240,234,220,0.1);
+  color: rgba(240,234,220,0.35);
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.retry-btn:hover { border-color: rgba(240,234,220,0.3); color: rgba(240,234,220,0.6); }
+.back-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid rgba(240,234,220,0.1);
+  color: rgba(240,234,220,0.3);
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.back-btn:hover { border-color: rgba(240,234,220,0.25); color: rgba(240,234,220,0.55); }
+.footer { text-align: center; margin-top: 60px; font-size: 11px; color: rgba(240,234,220,0.2); letter-spacing: 2px; font-family: 'Cinzel', serif; }
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="container">
+  <div class="header">
+    <div class="logo">COSMO TYPE™</div>
+    <div class="tagline">Discover Your 9-Type Personality</div>
+    <div class="divider"><span class="divider-icon">✦</span></div>
+    <p class="notice">
+      This quiz is for entertainment purposes only.<br>
+      Results are meant as a fun guide, not a clinical assessment.
+    </p>
+  </div>
+
+  <div class="quiz-section" id="quizSection">
+    <div class="progress-bar">
+      <div class="progress-label" id="progressLabel">Q 1 / 10</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:10%"></div>
+      </div>
+    </div>
+    <div class="question-card">
+      <div class="question-number" id="questionNumber">QUESTION 01</div>
+      <div class="question-text" id="questionText"></div>
+      <div class="options" id="optionsContainer"></div>
+    </div>
+  </div>
+
+  <div class="result-section" id="resultSection"></div>
+  <div class="footer">©2026 Hatarakutanukichi｜COSMO TYPE™</div>
+</div>
+
+<script>
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 100; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() < 0.2 ? 3 : 2;
+  s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;--d:${2+Math.random()*4}s;--o:${0.2+Math.random()*0.6};animation-delay:${Math.random()*4}s;`;
+  starsEl.appendChild(s);
+}
+
+const questions = [
+  { text: 'When you\'re low on energy, what helps you recharge?', axis: 'EI',
+    options: [
+      { label:'A', text:'Hanging out and having fun with friends', value:'E' },
+      { label:'B', text:'Spending time alone doing what I enjoy', value:'I' },
+      { label:'C', text:'I need both equally', value:'B', soft: true }
+    ]},
+  { text: 'Which week would feel harder?', axis: 'EI',
+    options: [
+      { label:'A', text:'A week with no time to hang out with friends', value:'E' },
+      { label:'B', text:'A week with no time to myself', value:'I' }
+    ]},
+  { text: 'After a fun day with someone you just met, how do you feel on the way home?', axis: 'EI',
+    options: [
+      { label:'A', text:'Happy! I want to see them again', value:'E' },
+      { label:'B', text:'It was fun, but I feel kind of tired', value:'I' }
+    ]},
+  { text: 'When something bad happens, what do you naturally want to do?', axis: 'EI',
+    options: [
+      { label:'A', text:'Talk to someone or get outside', value:'E' },
+      { label:'B', text:'Be alone for a while', value:'I' }
+    ]},
+  { text: 'Your close friend is about to do something they know they shouldn\'t. What do you want to do?', axis: 'FT',
+    options: [
+      { label:'A', text:'Listen to how they\'re feeling first', value:'F' },
+      { label:'B', text:'Tell them clearly it\'s a bad idea', value:'T' },
+      { label:'C', text:'Listen to them, then gently guide them in the right direction', value:'B', soft: true }
+    ]},
+  { text: 'When you disagree with a friend, what bothers you most?', axis: 'FT',
+    options: [
+      { label:'A', text:'Whether they feel hurt or upset', value:'F' },
+      { label:'B', text:'Who is actually right', value:'T' },
+      { label:'C', text:'Both bother me equally', value:'B', soft: true }
+    ]},
+  { text: 'When making a decision, what matters most to you?', axis: 'FT',
+    options: [
+      { label:'A', text:'Whether it makes everyone happy', value:'F' },
+      { label:'B', text:'Whether it\'s the right thing to do', value:'T' },
+      { label:'C', text:'Both matter equally', value:'B', soft: true }
+    ]},
+  { text: 'When you can\'t make up your mind, what finally helps you decide?', axis: 'FT',
+    options: [
+      { label:'A', text:'How you feel about it', value:'F' },
+      { label:'B', text:'Feeling confident it\'s the right choice', value:'T' },
+      { label:'C', text:'When both your feelings and confidence line up', value:'B', soft: true }
+    ]},
+  { text: 'How quickly do you notice changes in how others are feeling?', axis: 'SE',
+    options: [
+      { label:'A', text:'Very quickly — sometimes it surprises even me', value:'S' },
+      { label:'B', text:'Usually only after someone tells me', value:'N' }
+    ]},
+  { text: 'When you sense someone\'s sad or the mood shifts in the room, what do you naturally do?', axis: 'SP',
+    options: [
+      { label:'A', text:'Feel it with them and quietly stay close', value:'F' },
+      { label:'B', text:'Wonder why they feel that way', value:'T' }
+    ]}
+];
+
+const types = {
+  'EF':{ name:'Soleil', emoji:'🌞', axis:'Extrovert × Feeling', catchcopy:'Like the sun, just being there lights up the world.', imgUrl:'https://hatarakutanukichi.github.io/cosmo-type/images/soleil.PNG',
+    talent:'Have you ever thought, "Maybe I talk too much"? But that openness and ability to express your feelings is actually your greatest strength. When you\'re around, the whole vibe brightens up. Making people smile — not everyone can do that.',
+    strengths:['Your presence alone lifts the mood', 'You can express your feelings naturally', 'You share your joy with everyone around you'],
+    pitfalls:['Sometimes your feelings move faster than your thoughts', 'You can wear yourself out trying to be liked by everyone', 'You care a lot about how others react to you']},
+  'ET':{ name:'Folgore', emoji:'⚡', axis:'Extrovert × Logic', catchcopy:'Your words carry the power of reason.', imgUrl:'https://hatarakutanukichi.github.io/cosmo-type/images/folgore.PNG',
+    talent:'Do "Why?" and "How can we fix this?" pop into your head before anything else? That quick logical thinking is something not everyone has. When others are swept up in emotions, you stay calm and see clearly. That\'s a rare and valuable thing.',
+    strengths:['You can think and act at the same time', 'Once you set a goal, you go for it without hesitation', 'You stay calm and make clear decisions even in tough situations'],
+    pitfalls:['Sometimes you focus so much on being right that you leave others\' feelings behind', 'It\'s hard for you to show your vulnerable side', 'Pushing for perfection can sometimes exhaust the people around you']},
+  'EB':{ name:'Lumina', emoji:'✨', axis:'Extrovert × Both', catchcopy:'You are light — showing a different color depending on the angle.', imgUrl:'https://hatarakutanukichi.github.io/cosmo-type/images/lumia.PNG',
+    talent:'Have you ever been told "You\'re hard to pin down"? That\'s actually because you pick up on more than most people do. You can understand both the emotional side and the logical side — and that makes you the only one in the room with the full picture.',
+    strengths:['You can be yourself no matter where you are', 'You naturally switch between feelings and logic depending on the situation', 'You can connect deeply with all kinds of people'],
+    pitfalls:['Being too flexible can make your own values feel blurry', 'You might come across as trying to please everyone', 'Taking care of everyone around you can leave you exhausted']},
+  'IF':{ name:'Selena', emoji:'🌙', axis:'Introvert × Feeling', catchcopy:'Your kindness reaches people quietly, all the way to their core.', imgUrl:'https://hatarakutanukichi.github.io/cosmo-type/images/selena.PNG',
+    talent:'Do you ever feel like you\'re the only one who\'s struggling? That\'s because you\'re picking up on signals others can\'t even notice. Someone\'s unspoken pain, a subtle shift in the room — you catch it before anyone else. That sensitivity becomes your greatest power when it goes into something you create.',
+    strengths:['You can sense feelings that others can\'t put into words', 'Your gentle nature wraps people in a sense of safety', 'Just being there makes others feel at ease'],
+    pitfalls:['Taking in too many emotions can drain you', 'Bottling things up can lead to a sudden breaking point', 'Because you feel so deeply, you can get hurt easily']},
+  'IT':{ name:'Crystal', emoji:'💎', axis:'Introvert × Logic', catchcopy:'Only clear eyes can see through to the truth.', imgUrl:'https://hatarakutanukichi.github.io/cosmo-type/images/crystal.PNG',
+    talent:'Have you been told "You\'re too stubborn"? That\'s because you look straight at what\'s real, without bending to fit in. You go right to the heart of things — and once you\'re there, you don\'t waver. The kind of person others trust completely — that\'s you.',
+    strengths:['You see the truth without being swayed by emotions', 'You think things through carefully, right down to the details', 'You can untangle complicated problems and make them simple'],
+    pitfalls:['Sometimes you can\'t move forward unless everything feels perfect', 'You might put being right above how others feel', 'It can be hard to accept when others are less careful than you']},
+  'IB':{ name:'Abisso', emoji:'🌊', axis:'Introvert × Both', catchcopy:'The deeper you dive, the more unknown worlds you find.', imgUrl:'https://hatarakutanukichi.github.io/cosmo-type/images/abisso.PNG',
+    talent:'Do you ever keep asking yourself, "Am I doing this right?" The truth is, you already have the answer inside you. You find connections between things that seem unrelated — and you have the ability to put into words what nobody else has noticed.',
+    strengths:['You sense things that aren\'t visible on the surface', 'You work through both feelings and logic inside yourself', 'Once you commit to something, you give it everything'],
+    pitfalls:['It\'s hard to trust your own judgment, and you can get stuck going in circles', 'You tend to carry too much inside without telling anyone', 'Overthinking can leave you unable to take action']},
+  'BF':{ name:'Aurora', emoji:'🌌', axis:'Both × Feeling', catchcopy:'Because you\'re unpredictable, life becomes vivid.', imgUrl:'https://hatarakutanukichi.github.io/cosmo-type/images/aurora.PNG',
+    talent:'Do you sometimes feel like your moods are all over the place? But what Aurora types create in a single moment can leave people amazed. Your energy lights up the people around you. Your ideas spark something unexpected — and because they come from genuine passion, they hit people\'s hearts hard.',
+    strengths:['Your unexpected ideas surprise and delight people', 'You turn emotional waves into energy', 'You bring your own unique color to any environment'],
+    pitfalls:['Your changing moods can sometimes confuse the people around you', 'You run hot and cool quickly', 'Acting on impulse can lead to regret']},
+  'BT':{ name:'Stella', emoji:'⭐', axis:'Both × Logic', catchcopy:'Your light, always there, reaches the farthest.', imgUrl:'https://hatarakutanukichi.github.io/cosmo-type/images/stella.PNG',
+    talent:'While others chase the latest trends, you choose only the changes that truly matter. With a steady perspective and the ability to see the big picture, you quietly become "the expert" in your field over time.',
+    strengths:['You step back, stay calm, and make clear judgments', 'Your unshakeable core helps others find their direction', 'You think long-term, beyond the moment'],
+    pitfalls:['Staying in the big picture can sometimes disconnect you from your own feelings', 'You might resist change and lean toward keeping things as they are', 'Expressing emotions can be hard, and people may misread you']},
+  'BB':{ name:'Cosmo', emoji:'🌍', axis:'Both × Both', catchcopy:'Inside you, there is a universe.', imgUrl:'https://hatarakutanukichi.github.io/cosmo-type/images/cosmo.PNG',
+    talent:'Do you often wonder, "What should I actually be doing?" It\'s not that you don\'t have things you want — it\'s that you have too many possibilities. You can hold feelings and logic, inner and outer — all at once. The moment you choose one thing, everything clicks into place.',
+    strengths:['You connect naturally with all kinds of people', 'You can use both feelings and logic, inside and out', 'Your ideas break free from the usual way of doing things'],
+    pitfalls:['Because you can do anything, it\'s hard to know what you should do', 'Spreading yourself too thin makes it hard to focus on one thing', 'Empathizing with everyone can make you lose sight of yourself']}
+};
+
+let currentQ = 0;
+let scores = { EI: [], FT: [], SE: null, SP: null };
+const totalQ = questions.length;
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('progressLabel').textContent = `Q ${currentQ + 1} / ${totalQ}`;
+  document.getElementById('progressFill').style.width = `${((currentQ+1)/totalQ)*100}%`;
+  document.getElementById('questionNumber').textContent = `QUESTION ${String(currentQ+1).padStart(2,'0')}`;
+  document.getElementById('questionText').textContent = q.text;
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    if (opt.soft) {
+      btn.className = 'option-btn-c';
+      btn.innerHTML = `<span class="option-label-c">${opt.label}</span>${opt.text}`;
+    } else {
+      btn.className = 'option-btn';
+      btn.innerHTML = `<span class="option-label">${opt.label}</span>${opt.text}`;
+    }
+    btn.onclick = () => selectOption(opt.value);
+    container.appendChild(btn);
+  });
+  if (currentQ > 0) {
+    const backBtn = document.createElement('button');
+    backBtn.className = 'back-btn';
+    backBtn.textContent = '← Previous';
+    backBtn.onclick = () => goBack();
+    container.appendChild(backBtn);
+  }
+}
+
+function goBack() {
+  currentQ--;
+  const q = questions[currentQ];
+  if (q.axis === 'EI') scores.EI.pop();
+  else if (q.axis === 'FT') scores.FT.pop();
+  else if (q.axis === 'SE') scores.SE = null;
+  else if (q.axis === 'SP') scores.SP = null;
+  renderQuestion();
+}
+
+function selectOption(value) {
+  const q = questions[currentQ];
+  if (q.axis === 'EI') scores.EI.push(value);
+  else if (q.axis === 'FT') scores.FT.push(value);
+  else if (q.axis === 'SE') scores.SE = value;
+  else if (q.axis === 'SP') scores.SP = value;
+  currentQ++;
+  if (currentQ < questions.length) renderQuestion();
+  else showResult();
+}
+
+function getTypeKey() {
+  let eiE = 0, eiI = 0;
+  scores.EI.forEach(v => {
+    if (v === 'E') eiE += 1;
+    else if (v === 'I') eiI += 1;
+  });
+  let ei = 'B';
+  if (eiE > eiI) ei = 'E';
+  else if (eiI > eiE) ei = 'I';
+
+  let ftF = 0, ftT = 0;
+  scores.FT.forEach(v => {
+    if (v === 'F') ftF += 1;
+    else if (v === 'T') ftT += 1;
+  });
+  let ft = 'B';
+  if (ftF > ftT) ft = 'F';
+  else if (ftT > ftF) ft = 'T';
+
+  if (scores.SE === 'S' && scores.SP === 'T') {
+    if (ft === 'T') ft = 'B';
+  }
+  if (scores.SE === 'S' && scores.SP === 'F') {
+    if (ft === 'B') ft = 'F';
+  }
+
+  return ei + ft;
+}
+
+function showResult() {
+  document.getElementById('quizSection').style.display = 'none';
+  const key = getTypeKey();
+  const t = types[key] || types['BB'];
+
+  const answerMap = { 'E':'a', 'I':'b', 'B':'c', 'F':'a', 'T':'b', 'S':'a', 'N':'b' };
+  const eiLog = scores.EI.map(v => answerMap[v] || v);
+  const ftLog = scores.FT.map(v => answerMap[v] || v);
+  const seLog = scores.SE ? answerMap[scores.SE] : '-';
+  const spLog = scores.SP ? answerMap[scores.SP] : '-';
+  const answerLog = [...eiLog, ...ftLog, seLog, spLog].join('');
+
+  const rs = document.getElementById('resultSection');
+  rs.innerHTML = `
+    <div class="type-header">
+      <img src="${t.imgUrl}" alt="${t.name}" style="width:180px;height:180px;object-fit:contain;display:block;margin:0 auto 16px;filter:drop-shadow(0 0 20px rgba(201,168,76,0.4));">
+      <div class="type-name">${t.name}</div>
+      <div class="type-axis">${t.axis}</div>
+      <div class="catchcopy">"${t.catchcopy}"</div>
+      <div style="text-align:center;margin-top:16px;font-family:'Cinzel',serif;font-size:11px;color:rgba(240,234,220,0.3);letter-spacing:2px;">Your answers: ${answerLog}</div>
+    </div>
+    <div class="section-block">
+      <div class="section-title"><span class="section-icon">🌟</span><span class="section-label">YOUR TALENT</span><div class="section-line"></div></div>
+      <div class="content-box"><p>${t.talent}</p></div>
+    </div>
+    <div class="section-block">
+      <div class="section-title"><span class="section-icon">✦</span><span class="section-label">WHAT YOU'RE GOOD AT</span><div class="section-line"></div></div>
+      <div class="content-box"><ul class="list-items">${t.strengths.map(s=>`<li>${s}</li>`).join('')}</ul></div>
+    </div>
+    <div class="section-block">
+      <div class="section-title"><span class="section-icon">⚠️</span><span class="section-label">WATCH OUT FOR</span><div class="section-line"></div></div>
+      <div class="content-box"><ul class="list-items">${t.pitfalls.map(p=>`<li>${p}</li>`).join('')}</ul></div>
+    </div>
+    <div class="survey-section">
+      <p class="survey-text">Want to go deeper?<br>Try the Japanese version for the full reading.</p>
+      <a href="./index.html" style="display:block;margin-bottom:12px;padding:14px;border:1px solid rgba(201,168,76,0.3);color:var(--gold);text-decoration:none;text-align:center;letter-spacing:2px;font-family:'Cinzel',sans-serif;font-size:13px;">← Back to TOP</a>
+      <p style="font-size:11px;color:rgba(240,234,220,0.25);font-family:'Cinzel',serif;line-height:1.8;margin-top:16px;">
+        ※This quiz is for entertainment purposes only and is not a medical or psychological assessment.
+      </p>
+      <button class="retry-btn" onclick="resetQuiz()">Take the quiz again</button>
+      <a href="./index.html" style="display:block;margin-top:8px;text-align:center;font-size:11px;color:rgba(240,234,220,0.25);font-family:'Cinzel',serif;letter-spacing:2px;text-decoration:none;">← Back to TOP</a>
+    </div>
+  `;
+  rs.classList.add('show');
+}
+
+function resetQuiz() {
+  currentQ = 0;
+  scores = { EI: [], FT: [], SE: null, SP: null };
+  document.getElementById('resultSection').classList.remove('show');
+  document.getElementById('resultSection').innerHTML = '';
+  document.getElementById('quizSection').style.display = 'block';
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>
